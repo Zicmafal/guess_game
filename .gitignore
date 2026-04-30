@@ -1,12 +1,55 @@
-.venv
-.vscode
-Dockerfile*
-docker-compose*
-*/__pycache__/*
-db/*
-*.sqlite3
+# Ambientes virtuais Python
+.venv/
+venv/
+env/
+
+# Arquivos compilados e cache Python
+__pycache__/
+*.py[cod]
 *.pyc
 *.pyo
-bin/
-*.lock
+.pytest_cache/
 
+# Arquivos de ambiente e segredos
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+logs/
+log/
+
+# Builds e distribuições
+build/
+dist/
+frontend/build/
+frontend/dist/
+
+# Dependências Node.js
+node_modules/
+frontend/node_modules/
+
+# Dados locais persistentes (Docker, PostgreSQL, etc.)
+volumes/
+
+# Configurações Flask
+instance/
+
+# Arquivos de teste e cobertura
+.coverage
+htmlcov/
+
+# Arquivos do sistema operacional
+.DS_Store
+.DS_Store?
+Thumbs.db
+
+# IDEs e editores
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Outros caches
+*.cache
