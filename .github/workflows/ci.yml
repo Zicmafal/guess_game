@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Start services
+        run: docker compose up -d --build
+
+      - name: Wait for NGINX to be ready
+        run: |
+          for i in {1..30}; do
+            if curl -f -s http://localhost; then
+              echo "NGINX is responding"
+              exit 0
+            fi
+            echo "Waiting for NGINX... ($i/30)"
+            sleep 10
+          done
+          echo "NGINX did not respond after 5 minutes"
+          exit 1
+
+      - name: Show logs on failure
+        if: failure()
+        run: docker compose logs
+
+      - name: Cleanup
+        if: always()
+        run: docker compose down -v --remove-orphans
